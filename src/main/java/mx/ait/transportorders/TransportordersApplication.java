@@ -1,0 +1,13 @@
+package mx.ait.transportorders;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TransportordersApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TransportordersApplication.class, args);
+	}
+
+}
