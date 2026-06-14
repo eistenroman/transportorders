@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mx.ait.transportorders.dto.CreateDriverRequest;
@@ -20,6 +22,7 @@ import mx.ait.transportorders.service.DriverService;
 @RestController
 @RequestMapping("/driver")
 @RequiredArgsConstructor
+@Tag(name = "driver", description = "Endpoints para la gestión de conductores")
 public class DriverController {
     
 	private Log logging = LogFactory.getLog(DriverController.class);
@@ -27,6 +30,7 @@ public class DriverController {
     private final DriverService driverService;
     
     @PostMapping(value = "/create")
+    @Operation(summary = "Crear conductor", description = "Crear un conductor")
     public ResponseEntity<Driver> create(@Valid @RequestBody CreateDriverRequest request){
     	
     	logging.info("Creando " + request);
@@ -36,6 +40,7 @@ public class DriverController {
     
     
     @GetMapping(value = "/drivers")
+    @Operation(summary = "Obtener conductores", description = "Listar todos los conductores activos")
     public ResponseEntity<List<Driver>> getAll(){
     	
     	return ResponseEntity.ok(driverService.getActiveDrivers());

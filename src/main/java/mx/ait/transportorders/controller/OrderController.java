@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mx.ait.transportorders.dto.CreateOrderRequest;
@@ -25,6 +27,7 @@ import mx.ait.transportorders.service.OrderService;
 @RestController
 @RequestMapping("/order")
 @RequiredArgsConstructor
+@Tag(name = "order", description = "Endpoints para la gestión de ordenes")
 public class OrderController {
     
 	private Log logging = LogFactory.getLog(DriverController.class);
@@ -32,6 +35,7 @@ public class OrderController {
     private final OrderService orderService;
     
     @PostMapping(value = "/create")
+    @Operation(summary = "Crear orden", description = "Crear una nueva orden")
     public ResponseEntity<Orders> create(@Valid @RequestBody CreateOrderRequest request){
     	
     	logging.info("Creando " + request);
@@ -40,6 +44,8 @@ public class OrderController {
     }
     
     @PutMapping(value = "/{id}")
+    @Operation(summary = "Actualiza status de una orden", 
+    		description = "Cambiar el estado de la orden, valida flujo válido entre status")
     public ResponseEntity<Orders> update(@PathVariable String id, 
     		@Valid @RequestBody StatusOrderRequest request) throws StatusOrdersException{
     	
@@ -47,12 +53,15 @@ public class OrderController {
     }
     
     @GetMapping(value = "/{id}")
+    @Operation(summary = "Obtener orden por ID", description = "Consultar orden por ID")
     public ResponseEntity<Orders> get(@PathVariable String id){
     	
     	return ResponseEntity.ok(orderService.getOrder(id));
     }
     
     @GetMapping(value = "/{select}/{value}")
+    @Operation(summary = "Obtener ordennes con filtros", 
+    		description = "Listar órdenes con filtros: por status, fecha, origen o destino")
     public ResponseEntity<List<Orders>> getOrders(@PathVariable String select, @PathVariable String value) 
     		throws OrdersException, StatusOrdersException{
     	

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import mx.ait.transportorders.dto.AssignmentRequest;
 import mx.ait.transportorders.model.Assignment;
@@ -18,11 +20,13 @@ import mx.ait.transportorders.service.AssignmentService;
 @RestController
 @RequestMapping("/assignment")
 @RequiredArgsConstructor
+@Tag(name = "assignment", description = "Endpoints para la gestión de asignaciones")
 public class AssignmentController {
     
     private final AssignmentService assignmentService;
     
     @PostMapping(value = "/create")
+    @Operation(summary = "Crear asignacion", description = "Asignar un conductor a una orden")
     public ResponseEntity<Assignment> create(@RequestParam UUID idOrder, @RequestParam UUID idDriver,
     		@RequestParam MultipartFile file, @RequestParam MultipartFile image) throws IOException{
     	
