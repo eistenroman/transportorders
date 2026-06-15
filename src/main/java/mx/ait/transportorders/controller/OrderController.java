@@ -48,6 +48,8 @@ public class OrderController {
     		description = "Cambiar el estado de la orden, valida flujo válido entre status")
     public ResponseEntity<Orders> update(@PathVariable String id, 
     		@Valid @RequestBody StatusOrderRequest request) throws StatusOrdersException{
+    		
+    	logging.info("Actualizando orden id " + id + " a status " + request.getStatus());
     	
     	return ResponseEntity.ok(orderService.updateOrder(id, request));
     }
@@ -55,6 +57,8 @@ public class OrderController {
     @GetMapping(value = "/{id}")
     @Operation(summary = "Obtener orden por ID", description = "Consultar orden por ID")
     public ResponseEntity<Orders> get(@PathVariable String id){
+    	
+    	logging.info("Obtener orden id " + id);
     	
     	return ResponseEntity.ok(orderService.getOrder(id));
     }
@@ -64,6 +68,8 @@ public class OrderController {
     		description = "Listar órdenes con filtros: por status, fecha, origen o destino")
     public ResponseEntity<List<Orders>> getOrders(@PathVariable String select, @PathVariable String value) 
     		throws OrdersException, StatusOrdersException{
+    	
+    	logging.info("getOrders ordens con " + select + " igual a " + value);
     	
     	return ResponseEntity.ok(orderService.getSelectOrders(select, value));
     }

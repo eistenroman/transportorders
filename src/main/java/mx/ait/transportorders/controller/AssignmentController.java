@@ -3,6 +3,8 @@ package mx.ait.transportorders.controller;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +25,16 @@ import mx.ait.transportorders.service.AssignmentService;
 @Tag(name = "assignment", description = "Endpoints para la gestión de asignaciones")
 public class AssignmentController {
     
+	private Log logging = LogFactory.getLog(AssignmentController.class);
+	
     private final AssignmentService assignmentService;
     
     @PostMapping(value = "/create")
     @Operation(summary = "Crear asignacion", description = "Asignar un conductor a una orden")
     public ResponseEntity<Assignment> create(@RequestParam UUID idOrder, @RequestParam UUID idDriver,
     		@RequestParam MultipartFile file, @RequestParam MultipartFile image) throws IOException{
+    	
+    	logging.info("Asignar orden " + idOrder + " al condutor " + idDriver);
     	
     	AssignmentRequest request = AssignmentRequest.builder().idDriver(idDriver).idOrder(idOrder)
     							.file(file).image(image).build();
