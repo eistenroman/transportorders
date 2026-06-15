@@ -1,6 +1,8 @@
 package mx.ait.transportorders.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -78,6 +80,10 @@ public class OrderService {
 				return orderRepository.findByOrigin(value);
 			case "destino":
 				return orderRepository.findByDestination(value);
+			case "fecha":
+				DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				LocalDate fecha = LocalDate.parse(value, formato);
+				return orderRepository.findByFechaOnly(fecha);
 			default:
 				throw new OrdersException("El criterio no es reconocido");		
 		}

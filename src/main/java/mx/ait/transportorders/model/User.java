@@ -29,17 +29,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User implements UserDetails {
+	
+	private static final long serialVersionUID = 4236676193455011857L;
+	
 	@Id
     @GeneratedValue
     @UuidGenerator
     private java.util.UUID id;
     @Basic
     @Column(nullable = false)
-    String username;
-    String password;
-    String name;
+    private String username;
+    private String password;
+    private String name;
     @Enumerated(EnumType.STRING) 
-    Role role;
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
