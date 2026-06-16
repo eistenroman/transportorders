@@ -47,7 +47,7 @@ public class OrderController {
     @Operation(summary = "Actualiza status de una orden", 
     		description = "Cambiar el estado de la orden, valida flujo válido entre status")
     public ResponseEntity<Orders> update(@PathVariable String id, 
-    		@Valid @RequestBody StatusOrderRequest request) throws StatusOrdersException{
+    		@Valid @RequestBody StatusOrderRequest request) throws StatusOrdersException, OrdersException{
     		
     	logging.info("Actualizando orden id " + id + " a status " + request.getStatus());
     	

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,9 +41,14 @@ public class OrderService {
 				
 	}
 	
-	public Orders updateOrder(String id, StatusOrderRequest orderRequest) throws StatusOrdersException {
+	public Orders updateOrder(String id, StatusOrderRequest orderRequest) throws StatusOrdersException, OrdersException {
 		
 		Orders order = getOrder(id);
+		
+		if(order ==null ) {
+			throw new OrdersException("La orden con id " + id + "no fue encontrada");
+		}
+		
 		validateStatus(order.getStatus(), obtenStatus(orderRequest.getStatus()));
 		order.setStatus(obtenStatus(orderRequest.getStatus()));
 		order.setUpdatedAt(LocalDateTime.now());
@@ -51,7 +57,6 @@ public class OrderService {
 		logging.info("Actualizada " + order);
 		
 		return order;
-				
 	}
 	
 	private void validateStatus(Status status, Status status2) throws StatusOrdersException {
@@ -67,8 +72,13 @@ public class OrderService {
 	}
 
 	public Orders getOrder(String id) {
+		Optional<Orders> optionalOrder = orderRepository.findById(java.util.UUID.fromString(id));
 		
-		return orderRepository.findById(java.util.UUID.fromString(id)).get();
+		if(!optionalOrder.isEmpty()) {
+			return optionalOrder.get();
+		}
+		
+		return null;
 	}
 	
 	public List<Orders> getSelectOrders(String select, String value) throws OrdersException, StatusOrdersException {

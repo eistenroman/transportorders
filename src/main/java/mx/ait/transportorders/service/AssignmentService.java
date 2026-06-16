@@ -19,8 +19,8 @@ public class AssignmentService {
 		
 		Assignment assignment = Assignment.builder().idOrder(assignmentRequest.getIdOrder())
 						.idDriver(assignmentRequest.getIdDriver())
-						.file(assignmentRequest.getFile().getBytes())
-						.image(assignmentRequest.getImage().getBytes())
+						.file(assignmentRequest.getFile()!=null?assignmentRequest.getFile().getBytes():null)
+						.image(assignmentRequest.getImage()!=null?assignmentRequest.getImage().getBytes():null)
 						.build();
 		
 		return assignmentRepository.save(assignment);
