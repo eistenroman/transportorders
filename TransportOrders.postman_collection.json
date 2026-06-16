@@ -1,0 +1,294 @@
+{
+  "info": {
+    "_postman_id": "dcd4291d-e697-4c22-964b-338adde70111",
+    "name": "TransportOrders",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55889864",
+    "_collection_link": "https://go.postman.co/collection/55889864-dcd4291d-e697-4c22-964b-338adde70111?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Crear Orden",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvMSIsImlhdCI6MTc4MTU1OTY1NCwiZXhwIjoxNzgxNTYxMDk0fQ.orKdM0NRyvON08yk4yCGCZW1xDbBBCClEs2kvQuNw1s",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"origin\" : \"Origen A1\",\r\n    \"destination\" : \"Destination A1\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/order/create",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "order",
+            "create"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Order findById",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/order/523c64d8-b695-433e-a671-8f17ad11b387",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "order",
+            "523c64d8-b695-433e-a671-8f17ad11b387"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Select Orders",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/order/fecha/2026-06-15",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "order",
+            "fecha",
+            "2026-06-15"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Status",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"status\": \"CANCELLED\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/order/523c64d8-b695-433e-a671-8f17ad11b387",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "order",
+            "523c64d8-b695-433e-a671-8f17ad11b387"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear Driver",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\" : \"Juan Lopez Rosas\",\r\n    \"licenseNumber\" : \"416578\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/driver/create",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "driver",
+            "create"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Driver findAll Actives",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/driver/drivers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "driver",
+            "drivers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear Asignacion",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "idOrder",
+              "value": "523c64d8-b695-433e-a671-8f17ad11b387",
+              "type": "text",
+              "uuid": "9642412d-78a7-4f10-bed5-9665f793728b"
+            },
+            {
+              "key": "idDriver",
+              "value": "0bb31dcd-8f4e-4de5-b2ad-d536332e3857",
+              "type": "text",
+              "uuid": "020db16d-4957-412e-a213-8467cbdea4da"
+            },
+            {
+              "key": "file",
+              "type": "file",
+              "uuid": "d585db47-47ee-4328-ba8d-283008cf921c",
+              "src": "/C:/Users/eiste/Downloads/ArchivoPDF1.pdf"
+            },
+            {
+              "key": "image",
+              "type": "file",
+              "uuid": "a05db3f4-a011-4e43-a637-ef1b63ce3bbf",
+              "src": "/C:/Users/eiste/Downloads/ImagenJPG1.jpg"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/assignment/create",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "assignment",
+            "create"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"usuario1\",\r\n    \"password\": \"password1\" ,\r\n    \"name\" : \"Name Uno\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"usuario1\",\r\n    \"password\": \"password1\" \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Swagger",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
