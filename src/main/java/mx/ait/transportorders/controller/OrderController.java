@@ -56,7 +56,7 @@ public class OrderController {
     
     @GetMapping(value = "/{id}")
     @Operation(summary = "Obtener orden por ID", description = "Consultar orden por ID")
-    public ResponseEntity<Orders> get(@PathVariable String id){
+    public ResponseEntity<Orders> get(@PathVariable String id) throws OrdersException{
     	
     	logging.info("Obtener orden id " + id);
     	

@@ -34,7 +34,7 @@ public class OrderServiceTest {
     private OrderService orderService;
 	
 	@Test
-    public void whenGetOrder_thenReturnOrders() {
+    public void whenGetOrder_thenReturnOrders() throws OrdersException {
 
         // Given
         Orders mockOrder = new Orders();

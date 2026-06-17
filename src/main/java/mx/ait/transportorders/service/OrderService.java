@@ -45,10 +45,6 @@ public class OrderService {
 		
 		Orders order = getOrder(id);
 		
-		if(order ==null ) {
-			throw new OrdersException("La orden con id " + id + "no fue encontrada");
-		}
-		
 		validateStatus(order.getStatus(), obtenStatus(orderRequest.getStatus()));
 		order.setStatus(obtenStatus(orderRequest.getStatus()));
 		order.setUpdatedAt(LocalDateTime.now());
@@ -71,14 +67,14 @@ public class OrderService {
 		}
 	}
 
-	public Orders getOrder(String id) {
+	public Orders getOrder(String id) throws OrdersException {
 		Optional<Orders> optionalOrder = orderRepository.findById(java.util.UUID.fromString(id));
 		
 		if(!optionalOrder.isEmpty()) {
 			return optionalOrder.get();
 		}
 		
-		return null;
+		throw new OrdersException("La orden con id " + id + "no fue encontrada");
 	}
 	
 	public List<Orders> getSelectOrders(String select, String value) throws OrdersException, StatusOrdersException {
