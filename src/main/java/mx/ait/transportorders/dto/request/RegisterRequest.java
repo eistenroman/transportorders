@@ -1,4 +1,4 @@
-package mx.ait.transportorders.dto;
+package mx.ait.transportorders.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

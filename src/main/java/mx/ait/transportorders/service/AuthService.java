@@ -7,9 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import mx.ait.transportorders.dto.AuthResponse;
-import mx.ait.transportorders.dto.LoginRequest;
-import mx.ait.transportorders.dto.RegisterRequest;
+import mx.ait.transportorders.dto.request.LoginRequest;
+import mx.ait.transportorders.dto.request.RegisterRequest;
+import mx.ait.transportorders.dto.response.AuthResponse;
 import mx.ait.transportorders.jwt.JwtService;
 import mx.ait.transportorders.model.Role;
 import mx.ait.transportorders.model.User;

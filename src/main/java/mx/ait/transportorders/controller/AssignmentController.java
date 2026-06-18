@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import mx.ait.transportorders.dto.AssignmentRequest;
-import mx.ait.transportorders.model.Assignment;
+import mx.ait.transportorders.dto.request.AssignmentRequest;
+import mx.ait.transportorders.dto.response.AssignmentResponse;
 import mx.ait.transportorders.service.AssignmentService;
 
 @RestController
@@ -31,7 +31,7 @@ public class AssignmentController {
     
     @PostMapping(value = "/create")
     @Operation(summary = "Crear asignacion", description = "Asignar un conductor a una orden")
-    public ResponseEntity<Assignment> create(@RequestParam UUID idOrder, @RequestParam UUID idDriver,
+    public ResponseEntity<AssignmentResponse> create(@RequestParam UUID idOrder, @RequestParam UUID idDriver,
     		@RequestParam MultipartFile file, @RequestParam MultipartFile image) throws IOException{
     	
     	logging.info("Asignar orden " + idOrder + " al condutor " + idDriver);

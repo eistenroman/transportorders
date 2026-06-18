@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import mx.ait.transportorders.dto.CreateDriverRequest;
+import mx.ait.transportorders.dto.request.CreateDriverRequest;
 import mx.ait.transportorders.model.Driver;
 import mx.ait.transportorders.repository.DriverRepository;
 

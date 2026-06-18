@@ -1,4 +1,4 @@
-package mx.ait.transportorders.dto;
+package mx.ait.transportorders.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

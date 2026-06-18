@@ -17,7 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import mx.ait.transportorders.dto.CreateOrderRequest;
+import mx.ait.transportorders.dto.request.CreateOrderRequest;
 import mx.ait.transportorders.exception.OrdersException;
 import mx.ait.transportorders.exception.StatusOrdersException;
 import mx.ait.transportorders.model.Orders;

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import mx.ait.transportorders.exception.ErrorResponse;
+import mx.ait.transportorders.dto.response.ErrorResponse;
 import mx.ait.transportorders.exception.ResourceNotFoundException;
 
 @RestControllerAdvice

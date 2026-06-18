@@ -13,7 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import mx.ait.transportorders.dto.AssignmentRequest;
+import mx.ait.transportorders.dto.request.AssignmentRequest;
+import mx.ait.transportorders.dto.response.AssignmentResponse;
 import mx.ait.transportorders.model.Assignment;
 import mx.ait.transportorders.repository.AssignmentRepository;
 
@@ -27,7 +28,7 @@ public class AssignmentServiceTest {
     private AssignmentService assignmentService;
 	
 	@Test
-    public void whenCreateAssignment_thenReturnAssignment() throws IOException {
+    public void whenCreateAssignment_thenReturnAssignmentResponse() throws IOException {
 
         // Given
 		Assignment assignment = new Assignment();
@@ -36,13 +37,13 @@ public class AssignmentServiceTest {
 		
 		when(assignmentRepository.save(any(Assignment.class))).thenReturn(assignment);
 
-        // When
-		Assignment createAssignment = assignmentService.createAssignment(new AssignmentRequest(
-				UUID.fromString("bbd94054-81eb-4d78-ac8c-fad4f04c13a9"), 
-				UUID.fromString("6a906da5-8f51-45b7-9af9-4b5fa10a8265"), null, null));
+		// When
+		AssignmentResponse createAssignment = assignmentService
+				.createAssignment(new AssignmentRequest(UUID.fromString("bbd94054-81eb-4d78-ac8c-fad4f04c13a9"),
+						UUID.fromString("6a906da5-8f51-45b7-9af9-4b5fa10a8265"), null, null));
 
-        // Then
-        assertEquals(assignment, createAssignment);
+		// Then
+		assertEquals(assignment.getIdOrder(), createAssignment.getIdOrder());
 
     }
 }

@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mx.ait.transportorders.dto.CreateDriverRequest;
+import mx.ait.transportorders.dto.request.CreateDriverRequest;
 import mx.ait.transportorders.model.Driver;
 import mx.ait.transportorders.service.DriverService;
 

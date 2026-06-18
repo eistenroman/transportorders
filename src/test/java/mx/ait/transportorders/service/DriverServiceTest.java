@@ -14,7 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import mx.ait.transportorders.dto.CreateDriverRequest;
+import mx.ait.transportorders.dto.request.CreateDriverRequest;
 import mx.ait.transportorders.model.Driver;
 import mx.ait.transportorders.repository.DriverRepository;
 

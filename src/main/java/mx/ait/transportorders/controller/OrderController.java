@@ -17,8 +17,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mx.ait.transportorders.dto.CreateOrderRequest;
-import mx.ait.transportorders.dto.StatusOrderRequest;
+import mx.ait.transportorders.dto.request.CreateOrderRequest;
+import mx.ait.transportorders.dto.request.StatusOrderRequest;
 import mx.ait.transportorders.exception.OrdersException;
 import mx.ait.transportorders.exception.StatusOrdersException;
 import mx.ait.transportorders.model.Orders;
@@ -30,7 +30,7 @@ import mx.ait.transportorders.service.OrderService;
 @Tag(name = "order", description = "Endpoints para la gestión de ordenes")
 public class OrderController {
     
-	private Log logging = LogFactory.getLog(DriverController.class);
+	private Log logging = LogFactory.getLog(OrderController.class);
 	
     private final OrderService orderService;
     

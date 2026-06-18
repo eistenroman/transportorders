@@ -11,8 +11,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import mx.ait.transportorders.dto.CreateOrderRequest;
-import mx.ait.transportorders.dto.StatusOrderRequest;
+import mx.ait.transportorders.dto.request.CreateOrderRequest;
+import mx.ait.transportorders.dto.request.StatusOrderRequest;
 import mx.ait.transportorders.exception.OrdersException;
 import mx.ait.transportorders.exception.StatusOrdersException;
 import mx.ait.transportorders.model.Orders;

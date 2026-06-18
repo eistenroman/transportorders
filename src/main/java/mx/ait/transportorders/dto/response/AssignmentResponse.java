@@ -1,6 +1,4 @@
-package mx.ait.transportorders.dto;
-
-import org.springframework.web.multipart.MultipartFile;
+package mx.ait.transportorders.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AssignmentRequest {
+public class AssignmentResponse {
 	
+	private java.util.UUID id;
 	private java.util.UUID idOrder;
 	private java.util.UUID idDriver;
-	private MultipartFile file;
-	private MultipartFile image;
 	
 }

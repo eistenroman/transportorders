@@ -1,4 +1,4 @@
-package mx.ait.transportorders.exception;
+package mx.ait.transportorders.dto.response;
 
 import java.time.LocalDateTime;
 
