@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mx.ait.transportorders.dto.request.CreateDriverRequest;
-import mx.ait.transportorders.model.Driver;
+import mx.ait.transportorders.dto.response.DriverResponse;
 import mx.ait.transportorders.service.DriverService;
 
 @RestController
@@ -31,7 +31,7 @@ public class DriverController {
     
     @PostMapping(value = "/create")
     @Operation(summary = "Crear conductor", description = "Crear un conductor")
-    public ResponseEntity<Driver> create(@Valid @RequestBody CreateDriverRequest request){
+    public ResponseEntity<DriverResponse> create(@Valid @RequestBody CreateDriverRequest request){
     	
     	logging.info("Creando " + request);
     	
@@ -41,7 +41,7 @@ public class DriverController {
     
     @GetMapping(value = "/drivers")
     @Operation(summary = "Obtener conductores", description = "Listar todos los conductores activos")
-    public ResponseEntity<List<Driver>> getAll(){
+    public ResponseEntity<List<DriverResponse>> getAll(){
     	
     	return ResponseEntity.ok(driverService.getActiveDrivers());
     }

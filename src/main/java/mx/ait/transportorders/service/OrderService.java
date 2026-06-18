@@ -3,16 +3,19 @@ package mx.ait.transportorders.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import mx.ait.transportorders.dto.request.CreateOrderRequest;
 import mx.ait.transportorders.dto.request.StatusOrderRequest;
+import mx.ait.transportorders.dto.response.OrdersResponse;
 import mx.ait.transportorders.exception.OrdersException;
 import mx.ait.transportorders.exception.StatusOrdersException;
 import mx.ait.transportorders.model.Orders;
@@ -27,7 +30,9 @@ public class OrderService {
 	
 	private final OrderRepository orderRepository;
 	
-	public Orders createOrder(CreateOrderRequest orderRequest) {
+	private final ModelMapper modelMapper;
+	
+	public OrdersResponse createOrder(CreateOrderRequest orderRequest) {
 		
 		Orders order = Orders.builder().status(Status.CREATED)
 						.origin(orderRequest.getOrigin())
@@ -37,13 +42,15 @@ public class OrderService {
 		order = orderRepository.save(order);
 		logging.info("Creada " + order);
 		
-		return order;
+		OrdersResponse response = modelMapper.map(order, OrdersResponse.class);
+		
+		return response;
 				
 	}
 	
-	public Orders updateOrder(String id, StatusOrderRequest orderRequest) throws StatusOrdersException, OrdersException {
+	public OrdersResponse updateOrder(String id, StatusOrderRequest orderRequest) throws StatusOrdersException, OrdersException {
 		
-		Orders order = getOrder(id);
+		Orders order = orderRepository.findById(java.util.UUID.fromString(id)).get();
 		
 		validateStatus(order.getStatus(), obtenStatus(orderRequest.getStatus()));
 		order.setStatus(obtenStatus(orderRequest.getStatus()));
@@ -52,7 +59,9 @@ public class OrderService {
 		order = orderRepository.save(order);
 		logging.info("Actualizada " + order);
 		
-		return order;
+		OrdersResponse response = modelMapper.map(order, OrdersResponse.class);
+		
+		return response;
 	}
 	
 	private void validateStatus(Status status, Status status2) throws StatusOrdersException {
@@ -85,17 +94,30 @@ public class OrderService {
 		
 	}
 
-	public Orders getOrder(String id) throws OrdersException {
+	public OrdersResponse getOrder(String id) throws OrdersException {
 		Optional<Orders> optionalOrder = orderRepository.findById(java.util.UUID.fromString(id));
 		
 		if(!optionalOrder.isEmpty()) {
-			return optionalOrder.get();
+			
+			OrdersResponse response = modelMapper.map(optionalOrder.get(), OrdersResponse.class);
+			return response;
 		}
 		
 		throw new OrdersException("La orden con id " + id + "no fue encontrada");
 	}
 	
-	public List<Orders> getSelectOrders(String select, String value) throws OrdersException, StatusOrdersException {
+	public List<OrdersResponse> getSelectOrdersResponse(String select, String value) throws OrdersException, StatusOrdersException {
+		
+		List<OrdersResponse> listOrders = new ArrayList<>();
+		for(Orders order: getSelectOrders(select, value)) {
+			
+			listOrders.add(modelMapper.map(order, OrdersResponse.class));
+		}
+		
+		return listOrders;
+	}
+	
+	private List<Orders> getSelectOrders(String select, String value) throws OrdersException, StatusOrdersException {
 		
 		switch(select) {
 			case "status":

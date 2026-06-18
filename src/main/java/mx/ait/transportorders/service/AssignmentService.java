@@ -2,6 +2,7 @@ package mx.ait.transportorders.service;
 
 import java.io.IOException;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,8 @@ public class AssignmentService {
 	
 	private final AssignmentRepository assignmentRepository;
 	
+	private final ModelMapper modelMapper;
+	
 	public AssignmentResponse createAssignment(AssignmentRequest assignmentRequest) throws IOException {
 		
 		Assignment assignment = Assignment.builder().idOrder(assignmentRequest.getIdOrder())
@@ -26,8 +29,7 @@ public class AssignmentService {
 		
 		assignment = assignmentRepository.save(assignment);
 		
-		AssignmentResponse response = AssignmentResponse.builder().id(assignment.getId())
-				.idOrder(assignment.getIdOrder()).idDriver(assignment.getIdDriver()).build();
+		AssignmentResponse response = modelMapper.map(assignment, AssignmentResponse.class);
 		
 		return response;
 				

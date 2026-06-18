@@ -14,6 +14,5 @@ public class DriverResponse {
 	private java.util.UUID id;
 	private String name;
 	private String licenseNumber;
-	boolean active;
 	
 }

@@ -1,5 +1,6 @@
 package mx.ait.transportorders.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,5 +44,9 @@ public class ApplicationConfig {
 		return username -> userRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User not fournd"));
 	}
-
+	
+	@Bean
+    public ModelMapper getModelMapper() {
+        return new ModelMapper();
+    }
 }

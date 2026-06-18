@@ -1,11 +1,14 @@
 package mx.ait.transportorders.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import mx.ait.transportorders.dto.request.CreateDriverRequest;
+import mx.ait.transportorders.dto.response.DriverResponse;
 import mx.ait.transportorders.model.Driver;
 import mx.ait.transportorders.repository.DriverRepository;
 
@@ -15,18 +18,29 @@ public class DriverService {
 	
 	private final DriverRepository driverRepository;
 	
-	public Driver createDriver(CreateDriverRequest driverRequest) {
+	private final ModelMapper modelMapper;
+	
+	public DriverResponse createDriver(CreateDriverRequest driverRequest) {
 		
 		Driver driver = Driver.builder().name(driverRequest.getName())
 						.licenseNumber(driverRequest.getLicenseNumber())
 						.active(true).build();
 		
-		return driverRepository.save(driver);
-				
+		driver =  driverRepository.save(driver);
+		
+		DriverResponse response = modelMapper.map(driver, DriverResponse.class);
+		
+		return response;
 	}
 	
-	public List<Driver> getActiveDrivers(){
+	public List<DriverResponse> getActiveDrivers(){
 		
-		return driverRepository.findByActive(true);
+		List<DriverResponse> drivers = new ArrayList<>();
+		for(Driver driver: driverRepository.findByActive(true)) {
+			
+			drivers.add(modelMapper.map(driver, DriverResponse.class));
+		}
+		
+		return drivers;
 	}
 }
