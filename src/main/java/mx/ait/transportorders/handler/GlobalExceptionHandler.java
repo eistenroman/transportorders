@@ -1,4 +1,4 @@
-package mx.ait.transportorders.controller;
+package mx.ait.transportorders.handler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import mx.ait.transportorders.dto.response.ErrorResponse;
+import mx.ait.transportorders.exception.OrdersException;
 import mx.ait.transportorders.exception.ResourceNotFoundException;
+import mx.ait.transportorders.exception.StatusOrdersException;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends BusinessExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -38,7 +40,26 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
-
+    
+    @ExceptionHandler(StatusOrdersException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(StatusOrdersException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                "Unprocessable Entity",
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+    
+    @ExceptionHandler(OrdersException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(OrdersException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                "Unprocessable Entity",
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
     
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {

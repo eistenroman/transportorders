@@ -57,14 +57,32 @@ public class OrderService {
 	
 	private void validateStatus(Status status, Status status2) throws StatusOrdersException {
 		
-		if(status2.toString().equals("CREATED")
-				|| status2.toString().equals("CANCELLED") && !status.toString().equals("CREATED")
-				|| status2.toString().equals("IN_TRANSIT") && !status.toString().equals("CREATED")
-				|| status2.toString().equals("DELIVERED") && !status.toString().equals("IN_TRANSIT")) {
-			
-			throw new StatusOrdersException("El status " + status2.toString() 
-									+ " no puede actualizar a " + status.toString());
+		switch(status2) {
+			case CREATED:
+				throw new StatusOrdersException("La orden en estatus " + status.toString() 
+				+ " no puede actualizar a CREATED");
+			case IN_TRANSIT:
+				if(!status.equals(Status.CREATED)){
+					throw new StatusOrdersException("Una orden en estatus " + status.toString() 
+					+ " no puede actualizar a IN_TRANSIT");
+				}
+				break;
+			case DELIVERED:
+				if(!status.equals(Status.IN_TRANSIT)) {
+					throw new StatusOrdersException("Una orden en estatus " + status.toString() 
+					+ " no puede actualizar a DELIVERED" );
+				}
+				break;
+			case CANCELLED:
+				if(!status.equals(Status.CREATED)) {
+					throw new StatusOrdersException("Una orden en estatus " + status.toString() 
+					+ " no puede actualizar a CANCELLED");
+				}
+				break;
+			default:
+				throw new StatusOrdersException("El status a actualizar no es reconocido");	 		
 		}
+		
 	}
 
 	public Orders getOrder(String id) throws OrdersException {
