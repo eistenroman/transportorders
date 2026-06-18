@@ -47,7 +47,7 @@ public class AssignmentServiceTest {
 						UUID.fromString("6a906da5-8f51-45b7-9af9-4b5fa10a8265"), null, null));
 
 		// Then
-		assertEquals(null, createAssignment);
+		assertEquals(assignment.getIdOrder(), createAssignment.getIdOrder());
 
     }
 }

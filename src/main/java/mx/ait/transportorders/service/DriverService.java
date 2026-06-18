@@ -3,6 +3,8 @@ package mx.ait.transportorders.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import mx.ait.transportorders.repository.DriverRepository;
 @RequiredArgsConstructor
 public class DriverService {
 	
+	private Log logging = LogFactory.getLog(DriverService.class);
+	
 	private final DriverRepository driverRepository;
 	
 	private final ModelMapper modelMapper;
@@ -28,7 +32,10 @@ public class DriverService {
 		
 		driver =  driverRepository.save(driver);
 		
-		DriverResponse response = modelMapper.map(driver, DriverResponse.class);
+		logging.info("Conductor creado " + driver);
+		
+		DriverResponse response = DriverResponse.builder().id(driver.getId())
+				.name(driver.getName()).licenseNumber(driver.getLicenseNumber()).build();
 		
 		return response;
 	}

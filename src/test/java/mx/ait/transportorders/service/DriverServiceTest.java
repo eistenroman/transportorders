@@ -61,7 +61,7 @@ public class DriverServiceTest {
 		DriverResponse createDriver = driverService.createDriver(new CreateDriverRequest("Juan Gomez", "4563212"));
 
         // Then
-        assertEquals(null, createDriver);
+        assertEquals(driver.getLicenseNumber(), createDriver.getLicenseNumber());
 
     }
 }

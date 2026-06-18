@@ -55,7 +55,7 @@ public class OrderServiceTest {
         OrdersResponse found = orderService.getOrder("bbd94054-81eb-4d78-ac8c-fad4f04c13a9");
         
         // Then
-        assertEquals(null, found);
+        assertEquals(mockOrder.getId(), found.getId());
 
     }
 	
@@ -78,11 +78,11 @@ public class OrderServiceTest {
     }
 	
 	@Test
-    public void whenCreateOrders_thenReturnOrdersRsponse() {
+    public void whenCreateOrders_thenReturnOrdersResponse() {
 
         // Given
 		Orders orders = new Orders(UUID.fromString("bbd94054-81eb-4d78-ac8c-fad4f04c13a9"),
-				Status.DELIVERED,"Origen","Destino",LocalDateTime.now(),null);
+				Status.CREATED,"Origen","Destino",LocalDateTime.now(),null);
 		
 		when(orderRepository.save(any(Orders.class))).thenReturn(orders);
 
@@ -90,7 +90,7 @@ public class OrderServiceTest {
 		OrdersResponse createOrders = orderService.createOrder(new CreateOrderRequest("Origen A1", "Destino D1"));
 
         // Then
-        assertEquals(null, createOrders);
+        assertEquals(orders.getOrigin(), createOrders.getOrigin());
 
     }
 	

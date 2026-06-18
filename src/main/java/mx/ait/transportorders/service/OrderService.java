@@ -40,9 +40,11 @@ public class OrderService {
 						.createdAt(LocalDateTime.now()).build();
 		
 		order = orderRepository.save(order);
-		logging.info("Creada " + order);
+		logging.info("Orden creada " + order);
 		
-		OrdersResponse response = modelMapper.map(order, OrdersResponse.class);
+		OrdersResponse response = OrdersResponse.builder().id(order.getId()).origin(order.getOrigin())
+				.destination(order.getDestination()).status(order.getStatus())
+				.createdAt(order.getCreatedAt()).updatedAt(order.getUpdatedAt()).build();
 		
 		return response;
 				
@@ -57,7 +59,7 @@ public class OrderService {
 		order.setUpdatedAt(LocalDateTime.now());
 		
 		order = orderRepository.save(order);
-		logging.info("Actualizada " + order);
+		logging.info("Orden actualizada " + order);
 		
 		OrdersResponse response = modelMapper.map(order, OrdersResponse.class);
 		
@@ -97,9 +99,15 @@ public class OrderService {
 	public OrdersResponse getOrder(String id) throws OrdersException {
 		Optional<Orders> optionalOrder = orderRepository.findById(java.util.UUID.fromString(id));
 		
+		logging.info("Orden obtenida " + optionalOrder);
+		
 		if(!optionalOrder.isEmpty()) {
 			
-			OrdersResponse response = modelMapper.map(optionalOrder.get(), OrdersResponse.class);
+			Orders order = optionalOrder.get();
+			OrdersResponse response = OrdersResponse.builder().id(order.getId()).origin(order.getOrigin())
+					.destination(order.getDestination()).status(order.getStatus())
+					.createdAt(order.getCreatedAt()).updatedAt(order.getUpdatedAt()).build();
+					
 			return response;
 		}
 		
